@@ -3,11 +3,15 @@ package usantatecla.movies.v22;
 public class MovieBuilder {
 
 	private String title;
+	private MovieType movieType;
 	
-	private Price price;
+	private enum MovieType {
+		REGULAR, CHILDREN, NEW_RELEASE
+	}
 	
 	public MovieBuilder() {
 		title = "movieName";
+		movieType = MovieType.REGULAR;
 	}
 	
 	public MovieBuilder title(String title) {
@@ -16,21 +20,29 @@ public class MovieBuilder {
 	}
 	
 	public MovieBuilder childrens() {
-		this.price = new ChildrenPrice();
+		this.movieType = MovieType.CHILDREN;
 		return this;
 	}
 	
 	public MovieBuilder regular() {
-		this.price = new RegularPrice();
+		this.movieType = MovieType.REGULAR;
 		return this;
 	}
 	
 	public MovieBuilder newRelease() {
-		this.price = new NewReleasePrice();
+		this.movieType = MovieType.NEW_RELEASE;
 		return this;
 	}
 	
 	public Movie build() {
-		return new Movie(title, price);
+		switch (movieType) {
+			case CHILDREN:
+				return new ChildrenMovie(title);
+			case NEW_RELEASE:
+				return new NewReleaseMovie(title);
+			case REGULAR:
+			default:
+				return new RegularMovie(title);
+		}
 	}
 }
