@@ -29,7 +29,7 @@ public class Customer {
 		String result = "Rental Record for " + this.getName() + "\n";
 		
 		result = processRentals(result, (accumulator, rental) -> 
-			accumulator + "\t" + rental.getMovie().getTitle() + "\t" + 
+			accumulator + "\t" + rental.getTitle() + "\t" + 
 			String.valueOf(rental.getCharge()) + "\n");
 		
 		result += "Amount owed is " + String.valueOf(this.getTotalCharge()) + "\n";
